@@ -27,6 +27,7 @@ namespace ZavrsniRad.web
                 options.Password.RequireDigit = true;
                 options.Password.RequireNonAlphanumeric = true;
             })
+            .AddRoles<IdentityRole>()                          // OVO DODAJ za role
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();

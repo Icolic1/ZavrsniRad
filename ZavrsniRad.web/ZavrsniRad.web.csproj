@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ZavrsniRad.Application\ZavrsniRad.Application.csproj" />
+    <ProjectReference Include="..\ZavrsniRad.Domain\ZavrsniRad.Domain.csproj" />
     <ProjectReference Include="..\ZavrsniRad.Infrastructure\ZavrsniRad.Infrastructure.csproj" />
   </ItemGroup>
 
