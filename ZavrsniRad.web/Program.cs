@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ZavrsniRad.web.Data;
 using ZavrsniRad.web.Models;
+using ZavrsniRad.web.Services;
 
 namespace ZavrsniRad.web
 {
@@ -27,15 +28,17 @@ namespace ZavrsniRad.web
                 options.Password.RequireDigit = true;
                 options.Password.RequireNonAlphanumeric = true;
             })
-            .AddRoles<IdentityRole>()                          // OVO DODAJ za role
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>() // omogucava RoleManager i role-based auth
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
+            builder.Services.AddScoped<IEmailSender, DebugEmailSender>();
+
             var app = builder.Build();
 
-            // SEED ROLES
+            // SEED ROLES + ADMIN
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -61,6 +64,12 @@ namespace ZavrsniRad.web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // ROUTE ZA AREAS (Admin, kasnije Professor, Student)
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            // DEFAULT ROUTE
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

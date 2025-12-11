@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ZavrsniRad.Domain.Entities.Professor>
+
+@{
+    ViewData["Title"] = "Profesori";
+}
+
+<h1>Profesori</h1>
+
+<p>
+    <a asp-area="Admin" asp-controller="Users" asp-action="CreateProfessor" class="btn btn-primary">
+        Dodaj profesora
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Akademska titula</th>
+            <th>Odsjek</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.FirstName</td>
+                <td>@p.LastName</td>
+                <td>@p.AcademicTitle</td>
+                <td>@p.Department</td>
+            </tr>
+        }
+    </tbody>
+</table>
